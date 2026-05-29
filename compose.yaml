@@ -1,0 +1,77 @@
+services:
+
+  # Serviço de Banco de Dados PostgreSQL
+  postgres:
+    # Imagem oficial do PostgreSQL versão 16-alpine
+    image: postgres:16-alpine
+
+    # Configurações de ambiente para inicialização do banco
+    environment:
+      # Credenciais de acesso
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Nome do banco de dados inicial
+      POSTGRES_DB: ${POSTGRES_DB}
+
+    networks:
+      # PostgreSQL tem sua própria rede isolada
+      - fomezero-db-network
+
+    # Mapeamento de portas: host:container
+    ports:
+      - "5432:5432"
+
+    # Volume para persistência de dados
+    # Garante que os dados sejam mantidos mesmo após reiniciar o contêiner
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Define como o Docker vai verificar se o container está saudável/up (healthy) ou não
+    healthcheck:
+      # indica que o comando será executado dentro de um shell
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      # Dá um tempo de 20 segundos após o container iniciar antes de começar a checar.
+      start_period: 20s
+
+  # Aplicação
+  app:
+
+    # Build a partir de Dockerfile
+    build:
+      # Contexto do build (caminho para a pasta do projeto)
+      context: .
+      # Dockerfile da aplicação
+      dockerfile: Dockerfile
+
+    # Mapeamento de porta para acesso externo
+    ports:
+      - "8082:8082"
+
+    networks:
+      # App só acessa suas redes específicas
+      - fomezero-db-network  # Acesso ao PostgreSQL
+    
+    # Variáveis de ambiente para configuração
+    environment:
+      # Configurações de porta e conexão com PostgreSQL
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+# Definição de volumes para persistência de dados
+volumes:
+  # Volume nomeado para dados do PostgreSQL
+  postgres_data:
+
+# Definição de redes para comunicação entre containers
+networks:
+  # Rede para App para comunicação com PostgreSQL
+  fomezero-db-network:
+    driver: bridge
+    name: fomezero_database_network
