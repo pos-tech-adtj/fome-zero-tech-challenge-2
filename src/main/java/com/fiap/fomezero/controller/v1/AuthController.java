@@ -1,7 +1,7 @@
 package com.fiap.fomezero.controller.v1;
 
-import com.fiap.fomezero.dto.request.LoginRequest;
-import com.fiap.fomezero.dto.response.LoginResponse;
+import com.fiap.fomezero.application.dto.request.LoginRequest;
+import com.fiap.fomezero.application.dto.response.LoginResponse;
 import com.fiap.fomezero.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

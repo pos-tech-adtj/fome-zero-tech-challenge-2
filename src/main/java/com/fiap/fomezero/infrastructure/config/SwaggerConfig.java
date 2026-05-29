@@ -1,4 +1,4 @@
-package com.fiap.fomezero.config;
+package com.fiap.fomezero.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

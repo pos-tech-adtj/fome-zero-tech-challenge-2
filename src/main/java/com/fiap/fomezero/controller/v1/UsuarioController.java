@@ -1,9 +1,9 @@
 package com.fiap.fomezero.controller.v1;
 
-import com.fiap.fomezero.dto.request.UsuarioCreateRequest;
-import com.fiap.fomezero.dto.request.UsuarioSenhaRequest;
-import com.fiap.fomezero.dto.request.UsuarioUpdateRequest;
-import com.fiap.fomezero.dto.response.UsuarioResponse;
+import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
+import com.fiap.fomezero.application.dto.request.UsuarioSenhaRequest;
+import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
+import com.fiap.fomezero.application.dto.response.UsuarioResponse;
 import com.fiap.fomezero.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package com.fiap.fomezero.dto.response;
+package com.fiap.fomezero.application.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

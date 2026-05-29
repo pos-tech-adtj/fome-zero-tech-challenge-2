@@ -1,4 +1,4 @@
-package com.fiap.fomezero.config;
+package com.fiap.fomezero.infrastructure.config;
 
 import org.springframework.context.annotation.Configuration;
 

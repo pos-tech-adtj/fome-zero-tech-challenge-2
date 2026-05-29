@@ -2,10 +2,10 @@ package com.fiap.fomezero.mapper;
 
 import com.fiap.fomezero.domain.model.Endereco;
 import com.fiap.fomezero.domain.model.Usuario;
-import com.fiap.fomezero.dto.request.UsuarioCreateRequest;
-import com.fiap.fomezero.dto.request.UsuarioUpdateRequest;
-import com.fiap.fomezero.dto.response.EnderecoResponse;
-import com.fiap.fomezero.dto.response.UsuarioResponse;
+import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
+import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
+import com.fiap.fomezero.application.dto.response.EnderecoResponse;
+import com.fiap.fomezero.application.dto.response.UsuarioResponse;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
