@@ -1,4 +1,4 @@
-package com.fiap.fomezero.dto.response;
+package com.fiap.fomezero.application.dto.response;
 
 import com.fiap.fomezero.domain.model.TipoUsuario;
 import com.fiap.fomezero.domain.model.Usuario;

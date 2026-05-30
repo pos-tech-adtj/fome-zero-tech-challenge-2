@@ -1,4 +1,4 @@
-package com.fiap.fomezero.dto.request;
+package com.fiap.fomezero.application.dto.request;
 
 import com.fiap.fomezero.domain.model.TipoUsuario;
 import io.swagger.v3.oas.annotations.media.Schema;
