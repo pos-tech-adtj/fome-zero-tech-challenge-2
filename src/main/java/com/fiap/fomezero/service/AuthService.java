@@ -1,10 +1,10 @@
 package com.fiap.fomezero.service;
 
-import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.application.dto.request.LoginRequest;
 import com.fiap.fomezero.application.dto.response.LoginResponse;
+import com.fiap.fomezero.domain.model.Usuario;
+import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.CredenciaisInvalidasException;
-import com.fiap.fomezero.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

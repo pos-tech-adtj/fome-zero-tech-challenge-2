@@ -1,17 +1,13 @@
 package com.fiap.fomezero.service;
 
-import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioSenhaRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
 import com.fiap.fomezero.application.dto.response.UsuarioResponse;
-import com.fiap.fomezero.exception.EmailJaCadastradoException;
-import com.fiap.fomezero.exception.LoginJaCadastradoException;
-import com.fiap.fomezero.exception.SenhaAtualInvalidaException;
-import com.fiap.fomezero.exception.SenhaIgualAtualException;
-import com.fiap.fomezero.exception.UsuarioNaoEncontradoException;
+import com.fiap.fomezero.domain.model.Usuario;
+import com.fiap.fomezero.domain.repository.UsuarioRepository;
+import com.fiap.fomezero.exception.*;
 import com.fiap.fomezero.mapper.UsuarioMapper;
-import com.fiap.fomezero.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
