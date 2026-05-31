@@ -62,7 +62,7 @@ public class UsuarioJpaEntity implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
+    private EnderecoJpaEntity endereco;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
