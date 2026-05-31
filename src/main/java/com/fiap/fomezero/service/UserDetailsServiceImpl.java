@@ -1,6 +1,6 @@
 package com.fiap.fomezero.service;
 
-import com.fiap.fomezero.repository.UsuarioRepository;
+import com.fiap.fomezero.repository.UsuarioJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioJpaRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
