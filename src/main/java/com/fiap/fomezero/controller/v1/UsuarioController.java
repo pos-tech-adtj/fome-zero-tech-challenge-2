@@ -4,7 +4,7 @@ import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioSenhaRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
 import com.fiap.fomezero.application.dto.response.UsuarioResponse;
-import com.fiap.fomezero.service.UsuarioService;
+import com.fiap.fomezero.application.usecase.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -28,7 +28,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    private final CriarUsuarioUseCase criarUsuarioUseCase;
+
+    private final AtualizarUsuarioUseCase atualizarUsuarioUseCase;
+
+    private final DeletarUsuarioUseCase deletarUsuarioUseCase;
+
+    private final BuscarUsuarioUseCase buscarUsuarioUseCase;
+
+    private final AlterarSenhaUseCase alterarSenhaUseCase;
 
     @Operation(summary = "Criar usuário", description = "Cadastra um novo usuário na plataforma")
     @ApiResponses({
@@ -40,7 +48,7 @@ public class UsuarioController {
     })
     @PostMapping
     public ResponseEntity<UsuarioResponse> criarUsuario(@Valid @RequestBody UsuarioCreateRequest request) {
-        UsuarioResponse usuario = usuarioService.criarUsuario(request);
+        UsuarioResponse usuario = criarUsuarioUseCase.criarUsuario(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
@@ -52,7 +60,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(
             @Parameter(description = "ID do usuário", required = true) @PathVariable Long id) {
-        usuarioService.deletarUsuario(id);
+        deletarUsuarioUseCase.deletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -69,7 +77,7 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> atualizarUsuario(
             @Parameter(description = "ID do usuário", required = true) @PathVariable Long id,
             @Valid @RequestBody UsuarioUpdateRequest request) {
-        UsuarioResponse usuario = usuarioService.atualizarUsuario(id, request);
+        UsuarioResponse usuario = atualizarUsuarioUseCase.atualizarUsuario(id, request);
         return ResponseEntity.ok(usuario);
     }
 
@@ -83,7 +91,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponse> buscarUsuarioPorId(
             @Parameter(description = "ID do usuário", required = true) @PathVariable Long id) {
-        UsuarioResponse usuario = usuarioService.buscarUsuarioPorId(id);
+        UsuarioResponse usuario = buscarUsuarioUseCase.buscarUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
     }
 
@@ -93,7 +101,7 @@ public class UsuarioController {
                     array = @ArraySchema(schema = @Schema(implementation = UsuarioResponse.class))))
     @GetMapping
     public ResponseEntity<List<UsuarioResponse>> listarUsuarios() {
-        List<UsuarioResponse> usuarios = usuarioService.listarTodosUsuarios();
+        List<UsuarioResponse> usuarios = buscarUsuarioUseCase.listarTodosUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 
@@ -107,7 +115,7 @@ public class UsuarioController {
     @GetMapping("/nome/{nome}")
     public ResponseEntity<List<UsuarioResponse>> buscarUsuariosPorNome(
             @Parameter(description = "Nome do usuário", required = true) @PathVariable String nome) {
-        List<UsuarioResponse> usuarios = usuarioService.buscarUsuariosPorNome(nome);
+        List<UsuarioResponse> usuarios = buscarUsuarioUseCase.buscarUsuariosPorNome(nome);
         return ResponseEntity.ok(usuarios);
     }
 
@@ -122,7 +130,7 @@ public class UsuarioController {
     public ResponseEntity<Void> alterarSenha(
             @Parameter(description = "ID do usuário", required = true) @PathVariable Long id,
             @Valid @RequestBody UsuarioSenhaRequest request) {
-        usuarioService.alterarSenha(id, request);
+        alterarSenhaUseCase.alterarSenha(id, request);
         return ResponseEntity.noContent().build();
     }
 }
