@@ -26,13 +26,17 @@ public class LoginResponse {
     @Schema(description = "Indica se o usuário foi autenticado com sucesso", example = "true")
     private boolean autenticado;
 
-    public static LoginResponse from(Usuario user) {
+    @Schema(description = "Token JWT para autenticação nas próximas requisições")
+    private String token;
+
+    public static LoginResponse from(Usuario usuario, String token) {
         return LoginResponse.builder()
-                .id(user.getId())
-                .nome(user.getNome())
-                .email(user.getEmail())
-                .tipoUsuario(user.getTipoUsuario())
+                .id(usuario.getId())
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .tipoUsuario(usuario.getTipoUsuario())
                 .autenticado(true)
+                .token(token)
                 .build();
     }
 }

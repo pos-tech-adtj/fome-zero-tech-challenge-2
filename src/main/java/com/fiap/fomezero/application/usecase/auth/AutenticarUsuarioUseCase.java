@@ -1,35 +1,42 @@
-package com.fiap.fomezero.service;
+package com.fiap.fomezero.application.usecase.auth;
 
 import com.fiap.fomezero.application.dto.request.LoginRequest;
 import com.fiap.fomezero.application.dto.response.LoginResponse;
+import com.fiap.fomezero.domain.model.TipoUsuario;
 import com.fiap.fomezero.domain.model.Usuario;
+import com.fiap.fomezero.domain.port.TokenPort;
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.CredenciaisInvalidasException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AutenticarUsuarioUseCase {
 
     private final UsuarioRepository usuarioRepository;
-    private final AuthenticationManager manager;
+    private final AuthenticationManager authenticationManager;
+    private final TokenPort tokenPort;
 
     public LoginResponse autenticarUsuario(LoginRequest request) {
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(request.login(), request.senha());
-        Authentication authentication = manager.authenticate(authToken);
-
-        if (!authentication.isAuthenticated()) {
-            throw new CredenciaisInvalidasException();
-        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.login(), request.senha())
+        );
 
         Usuario usuario = usuarioRepository.findByLogin(request.login())
                 .orElseThrow(CredenciaisInvalidasException::new);
 
-        return LoginResponse.from(usuario);
+        List<String> roles = getRoles(usuario.getTipoUsuario());
+        String token = tokenPort.gerarToken(usuario.getId(), roles, usuario.getLogin());
+
+        return LoginResponse.from(usuario, token);
     }
 
+    private List<String> getRoles(TipoUsuario tipoUsuario) {
+        return List.of("ROLE_" + tipoUsuario.name());
+    }
 }
