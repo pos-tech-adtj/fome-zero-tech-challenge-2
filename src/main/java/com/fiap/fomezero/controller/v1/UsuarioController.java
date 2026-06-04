@@ -4,7 +4,7 @@ import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioSenhaRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
 import com.fiap.fomezero.application.dto.response.UsuarioResponse;
-import com.fiap.fomezero.application.usecase.*;
+import com.fiap.fomezero.application.usecase.usuario.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

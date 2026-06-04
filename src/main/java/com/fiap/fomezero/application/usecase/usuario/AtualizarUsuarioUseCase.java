@@ -1,30 +1,29 @@
-package com.fiap.fomezero.application.usecase;
+package com.fiap.fomezero.application.usecase.usuario;
 
-import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
+import com.fiap.fomezero.application.dto.request.UsuarioUpdateRequest;
 import com.fiap.fomezero.application.dto.response.UsuarioResponse;
 import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.EmailJaCadastradoException;
 import com.fiap.fomezero.exception.LoginJaCadastradoException;
+import com.fiap.fomezero.exception.UsuarioNaoEncontradoException;
 import com.fiap.fomezero.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CriarUsuarioUseCase {
+public class AtualizarUsuarioUseCase {
 
     private final UsuarioRepository usuarioRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    public UsuarioResponse atualizarUsuario(Long id, UsuarioUpdateRequest request) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(UsuarioNaoEncontradoException::new);
 
-    public UsuarioResponse criarUsuario(UsuarioCreateRequest request) {
-        validarEmailCadastrado(request.email());
-        validarLoginCadastrado(request.login());
+        validarInformacoesAtualizadas(usuario, request);
 
-        Usuario usuario = UsuarioMapper.toEntity(request);
-        usuario.setSenha(passwordEncoder.encode(request.senha()));
+        UsuarioMapper.updateEntity(usuario, request);
         usuario = usuarioRepository.save(usuario);
 
         return UsuarioMapper.toResponse(usuario);
@@ -39,6 +38,15 @@ public class CriarUsuarioUseCase {
     private void validarLoginCadastrado(String login) {
         if (usuarioRepository.existsByLogin(login)) {
             throw new LoginJaCadastradoException();
+        }
+    }
+
+    private void validarInformacoesAtualizadas(Usuario usuario, UsuarioUpdateRequest request) {
+        if (request.email() != null && !request.email().equals(usuario.getEmail())) {
+            validarEmailCadastrado(request.email());
+        }
+        if (request.login() != null &&!request.login().equals(usuario.getLogin())) {
+            validarLoginCadastrado(request.login());
         }
     }
 }

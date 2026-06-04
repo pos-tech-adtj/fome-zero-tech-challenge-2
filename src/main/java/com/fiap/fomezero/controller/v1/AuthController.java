@@ -2,7 +2,7 @@ package com.fiap.fomezero.controller.v1;
 
 import com.fiap.fomezero.application.dto.request.LoginRequest;
 import com.fiap.fomezero.application.dto.response.LoginResponse;
-import com.fiap.fomezero.service.AuthService;
+import com.fiap.fomezero.application.usecase.auth.AutenticarUsuarioUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
+    private final AutenticarUsuarioUseCase autenticarUsuarioUseCase;
 
     @Operation(summary = "Login", description = "Autentica um usuário com login e senha, retornando os dados do usuário autenticado")
     @ApiResponses({
@@ -36,6 +36,6 @@ public class AuthController {
     })
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authService.autenticarUsuario(request));
+        return ResponseEntity.ok(autenticarUsuarioUseCase.autenticarUsuario(request));
     }
 }

@@ -1,4 +1,4 @@
-package com.fiap.fomezero.application.usecase;
+package com.fiap.fomezero.application.usecase.usuario;
 
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.UsuarioNaoEncontradoException;
