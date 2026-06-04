@@ -6,7 +6,7 @@ import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.EmailJaCadastradoException;
 import com.fiap.fomezero.exception.LoginJaCadastradoException;
-import com.fiap.fomezero.mapper.UsuarioMapper;
+import com.fiap.fomezero.application.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

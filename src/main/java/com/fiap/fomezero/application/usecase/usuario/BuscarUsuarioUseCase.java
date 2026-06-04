@@ -4,7 +4,7 @@ import com.fiap.fomezero.application.dto.response.UsuarioResponse;
 import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.exception.UsuarioNaoEncontradoException;
-import com.fiap.fomezero.mapper.UsuarioMapper;
+import com.fiap.fomezero.application.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
