@@ -20,7 +20,7 @@ public class UsuarioJpaMapper {
                 .dataUltimaAlteracaoSenha(entity.getDataUltimaAlteracaoSenha())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
-                .endereco(null) // TODO - Mapear o endereço do usuário para a entidade correspondente
+                .endereco(EnderecoJpaMapper.toDomain(entity.getEndereco()))
                 .build();
     }
 
@@ -39,7 +39,7 @@ public class UsuarioJpaMapper {
                 .dataUltimaAlteracaoSenha(usuario.getDataUltimaAlteracaoSenha())
                 .createdAt(usuario.getCreatedAt())
                 .updatedAt(usuario.getUpdatedAt())
-                .endereco(null) // TODO - Mapear o endereço do usuário para a entidade correspondente
+                .endereco(EnderecoJpaMapper.toJpaEntity(usuario.getEndereco()))
                 .build();
     }
 }
