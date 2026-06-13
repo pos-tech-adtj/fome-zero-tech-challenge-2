@@ -1,37 +1,29 @@
 package com.fiap.fomezero.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-
-import java.time.LocalDateTime;
-
-@Data
-@AllArgsConstructor
-@Builder
 public class Usuario {
-
     private Long id;
-
-    private String nome;
-
-    private String email;
-
     private String login;
-
     private String senha;
-
     private TipoUsuario tipoUsuario;
 
-    private LocalDateTime dataUltimaAlteracaoSenha;
+    public Usuario() {}
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    private Endereco endereco;
-
-    public Usuario() {
-        this.createdAt = LocalDateTime.now();
+    public Usuario(Long id, String login, String senha, TipoUsuario tipoUsuario) {
+        this.id = id;
+        this.login = login;
+        this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
     }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getLogin() { return login; }
+    public void setLogin(String login) { this.login = login; }
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
+
+    public TipoUsuario getTipoUsuario() { return tipoUsuario; }
+    public void setTipoUsuario(TipoUsuario tipoUsuario) { this.tipoUsuario = tipoUsuario; }
 }
