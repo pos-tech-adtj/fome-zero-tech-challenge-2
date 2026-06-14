@@ -2,6 +2,7 @@ package com.fiap.fomezero.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -89,5 +90,25 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
 
         return problem;
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail badCredentials(BadCredentialsException e) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problemDetail.setTitle("Credenciais inválidas");
+        problemDetail.setDetail(e.getMessage());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail problemException(Exception e) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle("Ocorreu um erro inesperado");
+        problemDetail.setDetail(e.getMessage());
+
+        return problemDetail;
     }
 }

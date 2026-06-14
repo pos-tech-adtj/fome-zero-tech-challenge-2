@@ -1,6 +1,6 @@
 package com.fiap.fomezero.infrastructure.security;
 
-import com.fiap.fomezero.repository.UsuarioJpaRepository;
+import com.fiap.fomezero.infrastructure.persistence.repository.UsuarioJpaRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

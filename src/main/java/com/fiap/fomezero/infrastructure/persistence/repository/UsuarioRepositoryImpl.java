@@ -3,7 +3,6 @@ package com.fiap.fomezero.infrastructure.persistence.repository;
 import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.domain.repository.UsuarioRepository;
 import com.fiap.fomezero.mapper.UsuarioJpaMapper;
-import com.fiap.fomezero.repository.UsuarioJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
-    private final UsuarioJpaRepository usuarioJpaRepository;
+    private UsuarioJpaRepository usuarioJpaRepository;
 
     @Override
     public Usuario save(Usuario usuario) {

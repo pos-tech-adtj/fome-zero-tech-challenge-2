@@ -3,21 +3,40 @@ package com.fiap.fomezero.infrastructure.persistence.entity;
 import com.fiap.fomezero.domain.model.TipoUsuario;
 import com.fiap.fomezero.domain.model.Usuario;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
 @Table(name = "usuarios")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UsuarioJpaEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarios_seq")
     @SequenceGenerator(name = "usuarios_seq", sequenceName = "usuarios_id_seq", allocationSize = 1)
     private Long id;
+
+    @Column(nullable = false, length = 150)
+    private String nome;
+
+    @Column(nullable = false, unique = true, length = 150)
+    private String email;
 
     @Column(unique = true, nullable = false)
     private String login;
@@ -26,25 +45,24 @@ public class UsuarioJpaEntity implements UserDetails {
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "tipo_usuario", nullable = false, columnDefinition = "tipo_usuario_enum")
     private TipoUsuario tipoUsuario;
 
-    public UsuarioJpaEntity() {}
+    @Column(name = "data_ultima_alteracao_senha", nullable = false)
+    private LocalDateTime dataUltimaAlteracaoSenha;
 
-    // Construtor: Recebe um Usuario puro e transforma em Entidade de Banco
-    public UsuarioJpaEntity(Usuario usuario) {
-        this.id = usuario.getId();
-        this.login = usuario.getLogin();
-        this.senha = usuario.getSenha();
-        this.tipoUsuario = usuario.getTipoUsuario();
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    // Método: Transforma a Entidade de Banco de volta em um Usuario puro
-    public Usuario toDomain() {
-        return new Usuario(this.id, this.login, this.senha, this.tipoUsuario);
-    }
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    // --- Métodos obrigatórios do Spring Security (UserDetails) ---
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private EnderecoJpaEntity endereco;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
