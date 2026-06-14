@@ -1,7 +1,7 @@
 package com.fiap.fomezero.infrastructure.persistence.entity;
 
-import com.fiap.fomezero.domain.model.Endereco;
 import com.fiap.fomezero.domain.model.TipoUsuario;
+import com.fiap.fomezero.domain.model.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,10 +38,10 @@ public class UsuarioJpaEntity implements UserDetails {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(unique = true, nullable = false)
     private String login;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String senha;
 
     @Enumerated(EnumType.STRING)
@@ -66,22 +66,22 @@ public class UsuarioJpaEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        TipoUsuario[] roles = TipoUsuario.values();
-        int currIndex = tipoUsuario.ordinal();
-
-        return Arrays.stream(roles)
-                .filter(role -> role.ordinal() <= currIndex)
+        return Arrays.stream(TipoUsuario.values())
+                .filter(role -> role.ordinal() <= tipoUsuario.ordinal())
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
                 .toList();
     }
 
     @Override
-    public String getPassword() {
-        return senha;
-    }
-
+    public String getPassword() { return this.senha; }
     @Override
-    public String getUsername() {
-        return login;
-    }
+    public String getUsername() { return this.login; }
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+    @Override
+    public boolean isEnabled() { return true; }
 }
