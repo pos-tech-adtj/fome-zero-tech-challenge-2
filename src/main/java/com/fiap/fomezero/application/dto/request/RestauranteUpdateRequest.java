@@ -11,7 +11,7 @@ public record RestauranteUpdateRequest (
 
         @Schema(description = "Endereço do restaurante")
         @Valid
-        EnderecoRequest endereco,
+        EnderecoUpdateRequest endereco,
 
         @Schema(description = "Tipo de Cozinha", example = "")
         String tipoCozinha,

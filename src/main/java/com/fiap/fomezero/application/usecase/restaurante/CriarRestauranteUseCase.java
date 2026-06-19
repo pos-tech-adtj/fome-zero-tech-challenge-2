@@ -28,7 +28,6 @@ public class CriarRestauranteUseCase {
             throw new UsuarioNaoEDonoException();
         }
         Restaurante restaurante = RestauranteMapper.toEntity(request, usuario);
-        restauranteRepository.save(restaurante);
-        return RestauranteMapper.toResponse(restaurante);
+        return RestauranteMapper.toResponse(restauranteRepository.save(restaurante));
     }
 }
