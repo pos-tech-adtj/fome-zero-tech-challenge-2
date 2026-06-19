@@ -11,6 +11,9 @@ import lombok.Data;
 @Schema(description = "Dados do restaurante retornados pela API")
 public class RestauranteResponse {
 
+    @Schema(description = "ID único do restaurante", example = "1")
+    private Long id;
+
     @Schema(description = "Nome do restaurante", example = "")
     private String nome;
 
