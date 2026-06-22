@@ -11,7 +11,7 @@ public class DeletarRestauranteUseCase {
 
     private RestauranteRepository restauranteRepository;
 
-    private void deletarRestaurante(Long id) {
+    public void deletarRestaurante(Long id) {
         if (!restauranteRepository.existsById(id)) {
             throw new RestauranteNaoEncontradoException();
         }
