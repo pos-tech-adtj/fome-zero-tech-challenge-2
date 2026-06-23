@@ -1,0 +1,226 @@
+{
+  "info": {
+    "_postman_id": "f7f81cd4-62d9-4843-bf77-1104e5b852da",
+    "name": "Fome Zero API - Tech Challenge",
+    "description": "Collection de testes baseada no código-fonte da API Fome Zero. Contempla os endpoints de Autenticação e Usuários.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15584391"
+  },
+  "item": [
+    {
+      "name": "Restaurante",
+      "item": [
+        {
+          "name": "1. Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"joao.silva\",\n  \"senha\": \"Senha@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Autentica um usuário com login e senha, retornando os dados do usuário autenticado e o token de acesso."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Criar usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva\",\n  \"email\": \"joao@email.com\",\n  \"login\": \"joao.silva\",\n  \"senha\": \"Senha@123\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"endereco\": {\n    \"rua\": \"Rua das Flores\",\n    \"numero\": 123,\n    \"complemento\": \"Apto 45\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"cep\": \"01310-100\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios"
+              ]
+            },
+            "description": "Cadastra um novo usuário na plataforma. A senha deve ter no mínimo 8 caracteres."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Listar todos os usuários",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios"
+              ]
+            },
+            "description": "Retorna a lista de todos os usuários cadastrados na plataforma."
+          },
+          "response": []
+        },
+        {
+          "name": "4. Buscar usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Retorna os dados de um usuário pelo ID informado na URL."
+          },
+          "response": []
+        },
+        {
+          "name": "5. Buscar usuários por nome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios/nome/{{nomeUsuario}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios",
+                "nome",
+                "{{nomeUsuario}}"
+              ]
+            },
+            "description": "Retorna a lista de usuários com o nome exato informado na rota."
+          },
+          "response": []
+        },
+        {
+          "name": "6. Atualizar usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva Atualizado\",\n  \"email\": \"joao.novo@email.com\",\n  \"login\": \"joao.novo\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"endereco\": {\n    \"rua\": \"Rua Nova\",\n    \"numero\": 400,\n    \"complemento\": \"Casa\",\n    \"bairro\": \"Novo Centro\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"cep\": \"02000-000\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Atualiza os dados de um usuário existente pelo ID. Apenas os campos informados no payload serão atualizados."
+          },
+          "response": []
+        },
+        {
+          "name": "7. Alterar senha",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"senhaAtual\": \"Senha@123\",\n  \"novaSenha\": \"NovaSenha@321\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios/{{usuarioId}}/senha",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios",
+                "{{usuarioId}}",
+                "senha"
+              ]
+            },
+            "description": "Altera a senha de um usuário informando a senha atual e a nova senha."
+          },
+          "response": []
+        },
+        {
+          "name": "8. Deletar usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/usuarios/{{usuarioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "usuarios",
+                "{{usuarioId}}"
+              ]
+            },
+            "description": "Remove permanentemente um usuário da base de dados através do seu ID."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "usuarioId",
+      "value": "1"
+    },
+    {
+      "key": "nomeUsuario",
+      "value": "João da Silva"
+    }
+  ]
+}
