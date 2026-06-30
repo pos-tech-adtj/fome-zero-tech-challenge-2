@@ -44,6 +44,22 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(UsuarioNaoEDonoException.class)
+    public ProblemDetail usuarioNaoEDono(UsuarioNaoEDonoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        problemDetail.setTitle("Usuário não é dono de restaurante");
+        problemDetail.setDetail(e.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RestauranteNaoEncontradoException.class)
+    public ProblemDetail restauranteNaoEncontrado(RestauranteNaoEncontradoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Restaurante não encontrado");
+        problemDetail.setDetail(e.getMessage());
+        return problemDetail;
+    }
+
     @ExceptionHandler(CredenciaisInvalidasException.class)
     public ProblemDetail credenciaisInvalidas(CredenciaisInvalidasException e) {
 

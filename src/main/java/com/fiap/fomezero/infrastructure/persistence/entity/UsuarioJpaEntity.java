@@ -45,7 +45,6 @@ public class UsuarioJpaEntity implements UserDetails {
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name = "tipo_usuario", nullable = false, columnDefinition = "tipo_usuario_enum")
     private TipoUsuario tipoUsuario;
 
