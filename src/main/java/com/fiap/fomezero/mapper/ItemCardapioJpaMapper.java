@@ -1,4 +1,3 @@
-// ItemCardapioJpaMapper.java
 package com.fiap.fomezero.mapper;
 
 import com.fiap.fomezero.domain.model.ItemCardapio;
@@ -37,4 +36,5 @@ public class ItemCardapioJpaMapper {
                 .restaurante(RestauranteJpaMapper.toJpaEntity(domain.getRestaurante()))
                 .build();
     }
+  
 }

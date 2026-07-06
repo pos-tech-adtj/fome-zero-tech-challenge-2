@@ -1,4 +1,3 @@
-// ItemCardapioRepositoryImpl.java
 package com.fiap.fomezero.infrastructure.persistence.repository;
 
 import com.fiap.fomezero.domain.model.ItemCardapio;
@@ -41,12 +40,6 @@ public class ItemCardapioRepositoryImpl implements ItemCardapioRepository {
     }
 
     @Override
-    @Transactional
-    public void deleteById(Long id) {
-        itemCardapioJpaRepository.deleteById(id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<ItemCardapio> findAllByRestauranteId(Long restauranteId) {
         return itemCardapioJpaRepository.findAllByRestauranteId(restauranteId).stream()
@@ -55,8 +48,15 @@ public class ItemCardapioRepositoryImpl implements ItemCardapioRepository {
     }
 
     @Override
+    @Transactional
+    public void deleteById(Long id) {
+        itemCardapioJpaRepository.deleteById(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public boolean existsById(Long id) {
         return itemCardapioJpaRepository.existsById(id);
     }
+  
 }

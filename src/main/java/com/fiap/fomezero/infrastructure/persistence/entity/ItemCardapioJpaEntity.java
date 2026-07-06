@@ -1,4 +1,3 @@
-// ItemCardapioJpaEntity.java
 package com.fiap.fomezero.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
@@ -31,7 +30,7 @@ public class ItemCardapioJpaEntity {
     @Column(length = 255)
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Column(name = "apenas_no_restaurante", nullable = false)
