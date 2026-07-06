@@ -58,4 +58,5 @@ public class ItemCardapioRepositoryImpl implements ItemCardapioRepository {
     public boolean existsById(Long id) {
         return itemCardapioJpaRepository.existsById(id);
     }
+  
 }

@@ -36,4 +36,5 @@ public class ItemCardapioJpaMapper {
                 .restaurante(RestauranteJpaMapper.toJpaEntity(domain.getRestaurante()))
                 .build();
     }
+  
 }
