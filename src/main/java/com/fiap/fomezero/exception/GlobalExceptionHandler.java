@@ -60,6 +60,14 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(ItemCardapioNaoEncontradoException.class)
+    public ProblemDetail itemCardapioNaoEncontrado(ItemCardapioNaoEncontradoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Item de cardápio não encontrado");
+        problemDetail.setDetail(e.getMessage());
+        return problemDetail;
+    }
+
     @ExceptionHandler(CredenciaisInvalidasException.class)
     public ProblemDetail credenciaisInvalidas(CredenciaisInvalidasException e) {
 
