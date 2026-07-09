@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1;
+package com.fiap.fomezero.infrastructure.web.controller;
 
 import com.fiap.fomezero.application.dto.request.LoginRequest;
 import com.fiap.fomezero.application.dto.response.LoginResponse;

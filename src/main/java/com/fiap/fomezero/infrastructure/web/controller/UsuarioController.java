@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1;
+package com.fiap.fomezero.infrastructure.web.controller;
 
 import com.fiap.fomezero.application.dto.request.UsuarioCreateRequest;
 import com.fiap.fomezero.application.dto.request.UsuarioSenhaRequest;

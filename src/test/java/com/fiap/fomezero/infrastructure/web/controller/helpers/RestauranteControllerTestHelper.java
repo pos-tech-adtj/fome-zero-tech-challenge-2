@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1.helpers;
+package com.fiap.fomezero.infrastructure.web.controller.helpers;
 
 import com.fiap.fomezero.application.dto.request.EnderecoRequest;
 import com.fiap.fomezero.application.dto.request.EnderecoUpdateRequest;
