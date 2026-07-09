@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1;
+package com.fiap.fomezero.infrastructure.web.controller;
 
 import com.fiap.fomezero.application.dto.request.RestauranteCreateRequest;
 import com.fiap.fomezero.application.dto.request.RestauranteUpdateRequest;

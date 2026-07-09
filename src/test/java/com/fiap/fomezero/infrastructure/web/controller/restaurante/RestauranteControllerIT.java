@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1.restaurante;
+package com.fiap.fomezero.infrastructure.web.controller.restaurante;
 
 import com.fiap.fomezero.domain.model.Endereco;
 import com.fiap.fomezero.domain.model.Restaurante;

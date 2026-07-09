@@ -1,4 +1,4 @@
-package com.fiap.fomezero.controller.v1.restaurante;
+package com.fiap.fomezero.infrastructure.web.controller.restaurante;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,8 +7,8 @@ import com.fiap.fomezero.application.dto.request.RestauranteUpdateRequest;
 import com.fiap.fomezero.application.dto.response.EnderecoResponse;
 import com.fiap.fomezero.application.dto.response.RestauranteResponse;
 import com.fiap.fomezero.application.usecase.restaurante.*;
-import com.fiap.fomezero.controller.v1.RestauranteController;
-import com.fiap.fomezero.controller.v1.helpers.RestauranteControllerTestHelper;
+import com.fiap.fomezero.infrastructure.web.controller.RestauranteController;
+import com.fiap.fomezero.infrastructure.web.controller.helpers.RestauranteControllerTestHelper;
 import com.fiap.fomezero.domain.model.Usuario;
 import com.fiap.fomezero.exception.GlobalExceptionHandler;
 import com.fiap.fomezero.exception.RestauranteNaoEncontradoException;
