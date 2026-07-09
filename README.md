@@ -1,6 +1,6 @@
 # Fome Zero - Tech Challenge FIAP
 
-API REST para gerenciamento de usuários de um sistema de delivery/restaurantes, desenvolvida como tech challenge da FIAP.
+API REST para gerenciamento de um sistema de delivery/restaurantes, cobrindo usuários, restaurantes e itens de cardápio, desenvolvida como tech challenge da FIAP.
 
 ## Tecnologias
 
@@ -15,18 +15,59 @@ API REST para gerenciamento de usuários de um sistema de delivery/restaurantes,
 | springdoc-openapi (Swagger UI) | 3.0.3 |
 | Docker / Docker Compose | — |
 
+## Arquitetura
+
+O projeto segue uma estrutura inspirada em Clean Architecture com separação clara entre camadas:
+
+- `controller` e `infrastructure/web/controller` — entrada HTTP via REST controllers
+- `application/dto/request` e `application/dto/response` — objetos de entrada e saída
+- `application/usecase` — regras de negócio
+- `domain/model` — entidades e enums de domínio
+- `infrastructure/persistence` — entidades JPA e implementações de repositório
+- `infrastructure/security` — autenticação, autorização e filtro JWT
+- `infrastructure/config` — configurações gerais, Swagger e integrações
+
 ## Endpoints
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `POST` | `/v1/usuarios` | Criar usuário |
-| `GET` | `/v1/usuarios` | Listar todos os usuários |
-| `GET` | `/v1/usuarios/{id}` | Buscar usuário por ID |
-| `GET` | `/v1/usuarios/nome/{nome}` | Buscar usuário por nome |
-| `PUT` | `/v1/usuarios/{id}` | Atualizar dados do usuário |
-| `PATCH` | `/v1/usuarios/{id}/senha` | Alterar senha |
-| `DELETE` | `/v1/usuarios/{id}` | Deletar usuário |
-| `POST` | `/v1/auth/login` | Autenticar usuário |
+### Autenticação
+
+| Método | Rota | Descrição | Acesso |
+|---|---|---|---|
+| `POST` | `/v1/auth/login` | Autentica o usuário e retorna um token JWT | Público |
+
+### Usuários
+
+| Método | Rota | Descrição | Acesso |
+|---|---|---|---|
+| `POST` | `/v1/usuarios` | Criar usuário | Público |
+| `GET` | `/v1/usuarios` | Listar todos os usuários | Autenticado |
+| `GET` | `/v1/usuarios/{id}` | Buscar usuário por ID | Autenticado |
+| `GET` | `/v1/usuarios/nome/{nome}` | Buscar usuários por nome | Autenticado |
+| `PUT` | `/v1/usuarios/{id}` | Atualizar dados do usuário | Autenticado |
+| `PATCH` | `/v1/usuarios/{id}/senha` | Alterar senha | Autenticado |
+| `DELETE` | `/v1/usuarios/{id}` | Deletar usuário | Autenticado |
+
+### Restaurantes
+
+| Método | Rota | Descrição | Acesso |
+|---|---|---|---|
+| `POST` | `/v1/restaurantes` | Criar restaurante | Autenticado |
+| `GET` | `/v1/restaurantes` | Listar todos os restaurantes | Autenticado |
+| `GET` | `/v1/restaurantes/{id}` | Buscar restaurante por ID | Autenticado |
+| `PUT` | `/v1/restaurantes/{id}` | Atualizar restaurante | Autenticado |
+| `DELETE` | `/v1/restaurantes/{id}` | Deletar restaurante | Autenticado |
+
+### Itens de Cardápio
+
+| Método | Rota | Descrição | Acesso |
+|---|---|---|---|
+| `POST` | `/v1/itens-cardapio` | Criar item de cardápio | Autenticado |
+| `GET` | `/v1/itens-cardapio/restaurante/{restauranteId}` | Listar itens de um restaurante | Autenticado |
+| `GET` | `/v1/itens-cardapio/{id}` | Buscar item por ID | Autenticado |
+| `PUT` | `/v1/itens-cardapio/{id}` | Atualizar item de cardápio | Autenticado |
+| `DELETE` | `/v1/itens-cardapio/{id}` | Deletar item de cardápio | Autenticado |
+
+Rotas marcadas como **Autenticado** exigem o header `Authorization: Bearer <token>`, obtido em `/v1/auth/login`. As rotas públicas são o login, a criação de usuário (`POST /v1/usuarios`) e a documentação do Swagger.
 
 A documentação completa dos endpoints, com exemplos de request e response, está disponível via Swagger UI em `http://localhost:8082/swagger-ui.html` após subir a aplicação.
 
@@ -40,7 +81,7 @@ A documentação completa dos endpoints, com exemplos de request e response, est
 
 ```bash
 git clone <url-do-repositorio>
-cd fome-zero-tech-challenge
+cd fome-zero-tech-challenge-2
 ```
 
 ### 2. Configure as variáveis de ambiente
@@ -66,10 +107,11 @@ docker compose up --build
 ```
 
 Isso irá:
-- Iniciar o PostgreSQL 16 na porta `5432`
-- Buildar a imagem da aplicação
-- Executar as migrações do Flyway automaticamente
-- Subir a API na porta `8082`
+- Subir o PostgreSQL 16 na porta `5432`
+- Buildar a imagem da aplicação com Maven e executar a API em container
+- Iniciar a aplicação somente após o banco ficar saudável
+- Executar as migrações do Flyway automaticamente na subida da aplicação
+- Expor a API na porta `8082`
 
 ### 4. Acesse a aplicação
 
@@ -80,7 +122,7 @@ Isso irá:
 
 ## Collection Postman
 
-A collection com todos os endpoints e exemplos de request está disponível no arquivo [`Fome Zero API.postman_collection.json`](./Fome%20Zero%20API.postman_collection.json) na raiz do projeto.
+A collection com todos os endpoints e exemplos de request está disponível no arquivo [`Fome Zero API - Tech Challenge.postman_collection.json`](./Fome%20Zero%20API%20-%20Tech%20Challenge.postman_collection.json) na raiz do projeto.
 
 Para importar: abra o Postman > **Import** > selecione o arquivo.
 
