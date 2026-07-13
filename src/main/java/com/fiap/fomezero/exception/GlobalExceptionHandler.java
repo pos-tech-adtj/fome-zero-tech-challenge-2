@@ -2,6 +2,7 @@ package com.fiap.fomezero.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,30 @@ public class GlobalExceptionHandler {
         problemDetail.setTitle("Usuário não encontrado");
         problemDetail.setDetail(e.getMessage());
 
+        return problemDetail;
+    }
+
+    @ExceptionHandler(UsuarioNaoEDonoException.class)
+    public ProblemDetail usuarioNaoEDono(UsuarioNaoEDonoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        problemDetail.setTitle("Usuário não é dono de restaurante");
+        problemDetail.setDetail(e.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RestauranteNaoEncontradoException.class)
+    public ProblemDetail restauranteNaoEncontrado(RestauranteNaoEncontradoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Restaurante não encontrado");
+        problemDetail.setDetail(e.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ItemCardapioNaoEncontradoException.class)
+    public ProblemDetail itemCardapioNaoEncontrado(ItemCardapioNaoEncontradoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Item de cardápio não encontrado");
+        problemDetail.setDetail(e.getMessage());
         return problemDetail;
     }
 
@@ -89,5 +114,25 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
 
         return problem;
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail badCredentials(BadCredentialsException e) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problemDetail.setTitle("Credenciais inválidas");
+        problemDetail.setDetail(e.getMessage());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail problemException(Exception e) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setTitle("Ocorreu um erro inesperado");
+        problemDetail.setDetail(e.getMessage());
+
+        return problemDetail;
     }
 }
