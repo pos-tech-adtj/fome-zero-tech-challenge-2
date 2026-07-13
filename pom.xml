@@ -169,6 +169,14 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.13</version>
+				<configuration>
+					<excludes>
+						<!-- pacote infrastructure e subpacotes -->
+						<exclude>com/fiap/fomezero/infrastructure/**/*</exclude>
+						<!-- classe main -->
+						<exclude>com/fiap/fomezero/FomezeroApplication.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
