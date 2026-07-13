@@ -99,8 +99,6 @@ Conteúdo padrão do `.env`:
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=fomezerodb
-# JWT
-JWT_SECRET=954c4365df540d6f3b662010de0a99a7987d9184d4d0d396c011ed737fad9196
 ```
 
 ### 3. Suba a aplicação com Docker Compose
